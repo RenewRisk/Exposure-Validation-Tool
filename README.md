@@ -19,6 +19,8 @@ This section will guide you through the setup and usage of the Exposure Validati
 
 ### Usage
 
+![gif](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExODlqMGRvbDV6aXg4ODY2ZXBjcmoxenNmd2s1b2k3OXM1YjgweGh5NiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xe0F48FSGx5AH7qUQb/source.gif)
+
 1. Select the validation type from the dropdown menu: `Location` or `Account`.
 2. Depending on the selected validation type, upload the appropriate CSV files.
 3. Click `Upload` to begin the validation process and view the results.
