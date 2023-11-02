@@ -1,0 +1,50 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+.selectoptions{
+  background: #9fb7d6;
+  border: 0; cursor: pointer;
+  padding: 9px 12px;
+}
+button.btn.inputfile {
+  background: #06418d;
+  width: 100%; border-radius: 5px; color: white; padding: 15px;
+}
+button.uploadsubmit{
+  width: 100%; cursor: pointer;
+  border: 1px solid #06418d;  background: transparent;
+  color: #06418d; padding: 6px;
+}
+button.uploadsubmit:hover{
+  background: transparent; font-weight: bold;
+}
+button.downloadred {
+  background: transparent!important;color: red; width: 100%; text-decoration: underline; font-weight: bold;
+}
+.inputfile{
+  position: relative;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+.inputchose{
+  left: 0;
+  text-align-last: center; cursor: pointer;
+  opacity: 0; position: absolute;
+}
+.position-relative{
+  position: relative;
+}
+.w-1\/2.bg-white.p-4.overflow-y-auto {
+  display: none;
+}
