@@ -83,6 +83,6 @@ For more detailed information, please refer to the LICENSE file included in this
 
 ## Issue Reporting
 
-If you encounter any bugs or issues with this tool, please feel free to raise an issue on the GitHub repository's [Issues](https://github.com/{Github-User-Name}/{Repository-Name}/issues) page. While the company does not guarantee a response or resolution, community feedback is valued and contributes to potential improvements.
+If you encounter any bugs or issues with this tool, please feel free to raise an issue on the GitHub repository's [Issues](https://github.com/RenewRisk/Exposure-Validation-Tool/issues) page. While the company does not guarantee a response or resolution, community feedback is valued and contributes to potential improvements.
 
 Remember that this is a community-driven project, and while we foster a collaborative environment, the maintenance and troubleshooting are largely reliant on community engagement.
