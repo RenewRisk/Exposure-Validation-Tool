@@ -4,14 +4,27 @@ import "./styles/tailwind.css";
 import { FaUpload } from "react-icons/fa";
 
 const filterResponse = (response) => {
-  return response
-    .split("\n")
-    .filter(
-      (line) =>
-        line.endsWith("is not a valid oed field") ||
-        line.startsWith(" missing required column")
-    )
-    .join("\n");
+  const lines = response.split("\n");
+  const filteredLines = [];
+  
+  for (let i = 0; i < lines.length; i++) {
+    if (
+      lines[i].endsWith("is not a valid oed field") ||
+      lines[i].startsWith("missing required column") ||
+      lines[i].includes("invalid OccupancyCode")
+    ) {
+      filteredLines.push(lines[i]);
+
+      // Capture subsequent lines related to the error
+      let j = i + 1;
+      while (j < lines.length && lines[j].trim() !== "") {
+        filteredLines.push(lines[j]);
+        j++;
+      }
+    }
+  }
+
+  return filteredLines.join("\n");
 };
 
 function App() {
@@ -48,22 +61,28 @@ function App() {
     const formData = new FormData();
     formData.append("csv", file);
     if (secondFile) {
-      formData.append("secondCsv", secondFile);
+      formData.append("locationCsv", secondFile);
     }
     formData.append("command", command);
 
     try {
-      const result = await axios.post("/backend/upload", formData, {
+      const result = await axios.post("http://localhost:4000/backend/upload", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
 
       if (result.data) {
-        const filteredOutput = result.data.stderr
-          ? filterResponse(result.data.stderr)
-          : filterResponse(result.data.stdout);
-        setResponse(filteredOutput || "File is valid.");
+        let filteredOutput;
+        if (result.data.stderr) {
+          filteredOutput = filterResponse(result.data.stderr);
+        } else if (result.data.stdout) {
+          filteredOutput = filterResponse(result.data.stdout);
+        } else {
+          filteredOutput = "File is valid.";
+        }
+
+        setResponse(filteredOutput);
 
         setHistory((prevHistory) => [
           ...prevHistory,
@@ -90,7 +109,7 @@ function App() {
             </div>
           ))}
         </div>
-        <div className=" p-4">
+        <div className="p-4">
           <h1 className="text-2xl mb-6 font-semibold text-gray-700">
             Exposure Validation
           </h1>

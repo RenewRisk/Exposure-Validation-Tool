@@ -6,12 +6,13 @@ const morgan = require("morgan");
 const helmet = require("helmet");
 const compression = require("compression");
 const os = require('os'); 
+const fs = require('fs'); 
 const app = express();
 const PORT = process.env.PORT || 4000;
 
 // Update the CORS origin to allow requests from localhost
 const corsOptions = {
-  origin: ["http://localhost", "http://frontend"],
+  origin: ["http://localhost", "http://frontend","http://localhost:3000"],
   methods: "POST",
   allowedHeaders: "Content-Type",
   credentials: true,
@@ -26,9 +27,15 @@ app.use(morgan(app.get("env") === "production" ? "combined" : "dev"));
 app.use(helmet());
 app.use(compression());
 
+// Ensure the uploads directory exists
+const uploadDir = 'uploads';
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/");
+    cb(null, uploadDir);
   },
   filename: (req, file, cb) => {
     cb(null, Date.now() + "-" + file.originalname);
