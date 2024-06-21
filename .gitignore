@@ -613,6 +613,9 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+backend/uploads/*
+traefik/*
+
 # End of https://www.toptal.com/developers/gitignore/api/node,react,macos,windows,linux
 
 

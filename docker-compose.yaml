@@ -1,26 +1,24 @@
-version: '3.8'
-
+version: "3.8"
 services:
-
   traefik:
     image: traefik:v2.10
     container_name: traefik
-    labels:
-      - traefik.enable=false
     command:
       - "--api.insecure=true"
       - "--providers.docker"
       - "--entrypoints.web.address=:80"
+      - "--accesslog.filepath=traefik/access.log"
+      - "--accesslog.bufferingsize=100"
     ports:
       - "80:80"
       - "8080:8080"  # Traefik dashboard
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - ./traefik:/traefik
 
   backend:
-    image: backend
-    container_name: backend
     build: "./backend"
+    container_name: backend
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.backend.entrypoints=web"
@@ -32,9 +30,8 @@ services:
       - uploads:/app/uploads
 
   frontend:
-    image: frontend
-    container_name: frontend
     build: ./frontend
+    container_name: frontend
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.frontend.entrypoints=web"
