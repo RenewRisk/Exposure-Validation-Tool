@@ -1,17 +1,20 @@
-version: "3.8"
 services:
   traefik:
-    image: traefik:v2.10
+    image: traefik:v3.0
     container_name: traefik
     command:
       - "--api.insecure=true"
-      - "--providers.docker"
+      - "--providers.docker=true"
       - "--entrypoints.web.address=:80"
       - "--accesslog.filepath=traefik/access.log"
       - "--accesslog.bufferingsize=100"
+      - "--entryPoints.ping.address=:8082"
+      - "--ping.entryPoint=ping"
     ports:
       - "80:80"
       - "8080:8080"  # Traefik dashboard
+      - "443:443"
+      - "8082:8082"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - ./traefik:/traefik
@@ -22,7 +25,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.backend.entrypoints=web"
-      - "traefik.http.routers.backend.rule=PathPrefix(`/healthcheck`, `/backend`)"
+      - "traefik.http.routers.backend.rule=PathPrefix(`/healthcheck`) || PathPrefix(`/backend`)"
       - "traefik.http.routers.backend.service=backend"
       - "traefik.http.services.backend.loadbalancer.server.port=4000"
     volumes:
